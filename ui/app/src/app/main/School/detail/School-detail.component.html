@@ -1,0 +1,180 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="name" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="School_form_edit" 
+        service="School" 
+        entity="School" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-text-input #name attr="name" label=" name*" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #address attr="address" label="address" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-integer-input #id attr="id" label="id" type="integer" editable="no" required="no" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="COURSE-school_id">
+    <div layout-padding>
+      <o-table 
+        attr="CourseTable" 
+        service="Course" 
+        entity="Course" 
+        keys="id"
+        parent-keys="school_id:id"
+        columns="name;school_id;description;id"  
+        horizontal-scroll="yes"
+        detail-form-route="Course" 
+        edit-form-route="Course"
+        visible-columns="name;school_id;description;id"  
+        sort-columns="name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #name attr="name" title=" name*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="school_id" title="school_id">
+    <o-table-cell-renderer-service attr="school_id" 
+        service="School" entity="SchoolType" columns="id;name"
+        parent-keys="id:school_id"
+        value-column="name" keys="school_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #description attr="description" title="description" editable="no" required="no" content-align="left"></o-table-column>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="STUDENT-school_id">
+    <div layout-padding>
+      <o-table 
+        attr="StudentTable" 
+        service="Student" 
+        entity="Student" 
+        keys="id"
+        parent-keys="school_id:id"
+        columns="first_name;school_id;last_name;dob;id"  
+        horizontal-scroll="yes"
+        detail-form-route="Student" 
+        edit-form-route="Student"
+        visible-columns="first_name;school_id;last_name;dob;id"  
+        sort-columns="first_name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #first_name attr="first_name" title=" first_name*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="school_id" title="school_id">
+    <o-table-cell-renderer-service attr="school_id" 
+        service="School" entity="SchoolType" columns="id;name"
+        parent-keys="id:school_id"
+        value-column="name" keys="school_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #last_name attr="last_name" title="last_name" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-date-input #dob attr="dob" type="date" label="dob" enabled="yes" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="TEACHER-school_id">
+    <div layout-padding>
+      <o-table 
+        attr="TeacherTable" 
+        service="Teacher" 
+        entity="Teacher" 
+        keys="id"
+        parent-keys="school_id:id"
+        columns="first_name;school_id;last_name;hire_date;id"  
+        horizontal-scroll="yes"
+        detail-form-route="Teacher" 
+        edit-form-route="Teacher"
+        visible-columns="first_name;school_id;last_name;hire_date;id"  
+        sort-columns="first_name" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #first_name attr="first_name" title=" first_name*" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-table-column attr="school_id" title="school_id">
+    <o-table-cell-renderer-service attr="school_id" 
+        service="School" entity="SchoolType" columns="id;name"
+        parent-keys="id:school_id"
+        value-column="name" keys="school_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #last_name attr="last_name" title="last_name" editable="no" required="yes" content-align="left"></o-table-column>
+        
+          <o-date-input #hire_date attr="hire_date" type="timestamp" label="hire_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+          <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>

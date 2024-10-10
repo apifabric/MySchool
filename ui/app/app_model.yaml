@@ -1,0 +1,278 @@
+about:
+  date: October 10, 2024 12:28:32
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  Course:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: school_id
+      template: integer
+      type: INTEGER
+    - name: description
+      template: text
+      type: TEXT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Stores information about courses.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Stores information about courses.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - course_id
+      name: EnrollmentList
+      resource: Enrollment
+    - direction: toone
+      fks:
+      - school_id
+      name: school
+      resource: School
+    type: Course
+  Enrollment:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: course_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: student_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: enrollment_date
+      template: date
+      type: DATETIME
+    description: Stores information about student enrollments in courses.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Stores information about student enrollments in courses.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - enrollment_id
+      name: GradeList
+      resource: Grade
+    - direction: toone
+      fks:
+      - course_id
+      name: course
+      resource: Course
+    - direction: toone
+      fks:
+      - student_id
+      name: student
+      resource: Student
+    type: Enrollment
+  Grade:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: enrollment_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: grade
+      template: text
+      type: VARCHAR
+    description: Stores grades assigned to students.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Stores grades assigned to students.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - enrollment_id
+      name: enrollment
+      resource: Enrollment
+    type: Grade
+  School:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: address
+      template: text
+      type: TEXT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Stores information about schools.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Stores information about schools.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - school_id
+      name: CourseList
+      resource: Course
+    - direction: tomany
+      fks:
+      - school_id
+      name: StudentList
+      resource: Student
+    - direction: tomany
+      fks:
+      - school_id
+      name: TeacherList
+      resource: Teacher
+    type: School
+  Student:
+    columns:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: school_id
+      template: integer
+      type: INTEGER
+    - name: last_name
+      required: true
+      template: text
+      type: VARCHAR
+    - name: dob
+      template: date
+      type: DATETIME
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Stores information about students.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: first_name
+    home_template: home_template.html
+    info_list: Stores information about students.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - student_id
+      name: EnrollmentList
+      resource: Enrollment
+    - direction: toone
+      fks:
+      - school_id
+      name: school
+      resource: School
+    type: Student
+  Teacher:
+    columns:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: school_id
+      template: integer
+      type: INTEGER
+    - name: last_name
+      required: true
+      template: text
+      type: VARCHAR
+    - name: hire_date
+      template: date
+      type: DATETIME
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Stores information about teachers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: first_name
+    home_template: home_template.html
+    info_list: Stores information about teachers.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - school_id
+      name: school
+      resource: School
+    type: Teacher
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

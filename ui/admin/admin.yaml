@@ -1,0 +1,194 @@
+about:
+  date: October 10, 2024 12:28:32
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 6
+  number_tables: 6
+info_toggle_checked: true
+resources:
+  Course:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: school_id
+    - name: description
+    - name: id
+    description: Stores information about courses.
+    info_list: Stores information about courses.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - course_id
+      name: EnrollmentList
+      resource: Enrollment
+    - direction: toone
+      fks:
+      - school_id
+      name: school
+      resource: School
+    type: Course
+    user_key: name
+  Enrollment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: course_id
+      required: true
+    - name: student_id
+      required: true
+    - name: enrollment_date
+    description: Stores information about student enrollments in courses.
+    info_list: Stores information about student enrollments in courses.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - enrollment_id
+      name: GradeList
+      resource: Grade
+    - direction: toone
+      fks:
+      - course_id
+      name: course
+      resource: Course
+    - direction: toone
+      fks:
+      - student_id
+      name: student
+      resource: Student
+    type: Enrollment
+    user_key: id
+  Grade:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: enrollment_id
+      required: true
+    - name: grade
+    description: Stores grades assigned to students.
+    info_list: Stores grades assigned to students.
+    tab_groups:
+    - direction: toone
+      fks:
+      - enrollment_id
+      name: enrollment
+      resource: Enrollment
+    type: Grade
+    user_key: id
+  School:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: address
+    - name: id
+    description: Stores information about schools.
+    info_list: Stores information about schools.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - school_id
+      name: CourseList
+      resource: Course
+    - direction: tomany
+      fks:
+      - school_id
+      name: StudentList
+      resource: Student
+    - direction: tomany
+      fks:
+      - school_id
+      name: TeacherList
+      resource: Teacher
+    type: School
+    user_key: name
+  Student:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: school_id
+    - name: last_name
+      required: true
+    - name: dob
+    - name: id
+    description: Stores information about students.
+    info_list: Stores information about students.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - student_id
+      name: EnrollmentList
+      resource: Enrollment
+    - direction: toone
+      fks:
+      - school_id
+      name: school
+      resource: School
+    type: Student
+    user_key: first_name
+  Teacher:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: school_id
+    - name: last_name
+      required: true
+    - name: hire_date
+    - name: id
+    description: Stores information about teachers.
+    info_list: Stores information about teachers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - school_id
+      name: school
+      resource: School
+    type: Teacher
+    user_key: first_name
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

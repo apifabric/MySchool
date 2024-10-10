@@ -1,0 +1,54 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table Course {
+    id INTEGER
+    name VARCHAR
+    description TEXT
+    school_id INTEGER
+    }
+
+Table School {
+    id INTEGER
+    name VARCHAR
+    address TEXT
+    }
+
+Table Enrollment {
+    id INTEGER
+    course_id INTEGER
+    student_id INTEGER
+    enrollment_date DATETIME
+    }
+
+Table Student {
+    id INTEGER
+    first_name VARCHAR
+    last_name VARCHAR
+    dob DATETIME
+    school_id INTEGER
+    }
+
+Table Grade {
+    id INTEGER
+    enrollment_id INTEGER
+    grade VARCHAR
+    }
+
+Table Teacher {
+    id INTEGER
+    first_name VARCHAR
+    last_name VARCHAR
+    hire_date DATETIME
+    school_id INTEGER
+    }
+
+
+
+// Relationships
+    Ref: Course.(school_id) < School.(id)
+    Ref: Enrollment.(course_id) < Course.(id)
+    Ref: Enrollment.(student_id) < Student.(id)
+    Ref: Student.(school_id) < School.(id)
+    Ref: Grade.(enrollment_id) < Enrollment.(id)
+    Ref: Teacher.(school_id) < School.(id)
